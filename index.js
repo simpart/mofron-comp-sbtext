@@ -45,16 +45,6 @@ mf.comp.SBText = class extends Text {
                     throw e;
                 }
             }
-            //let hvr = (hvr_cmp, hvr_flg) => {
-            //    try {
-            //        hvr_cmp.mainColor(
-            //            (true === hvr_flg) ? hvr_cmp.mainColor()[0] : hvr_cmp.mainColor()[1]
-            //        );
-            //    } catch (e) {
-            //        console.error(e.stack);
-            //        throw e;
-            //    }
-            //}
             
             this.event([
                 new Click(clk),
@@ -78,6 +68,14 @@ mf.comp.SBText = class extends Text {
         }
     }
     
+    /**
+     * hover color setter/getter
+     *
+     * @param p1 (string) hover color (css value)
+     * @param p1 (number-array) hover color ([r,g,b])
+     * @param p1 (undefined) call as getter
+     * @return (string) hover color 
+     */
     hoverColor (clr) {
         try {
             return this.effect('Color').color(
@@ -90,12 +88,35 @@ mf.comp.SBText = class extends Text {
         }
     }
     
+    /**
+     * border color setter/getter
+     *
+     * @param p1 (string) border color (css value)
+     * @param p1 (number-array) border color ([r,g,b])
+     * @param p1 (undefined) call as getter
+     * @return (string) border color 
+     */
     accentColor (prm) {
         try {
             if (undefined !== prm) {
                 this.hoverColor(prm);
             }
             return this.effect('Border').color(prm);
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    /**
+     * set/unset selected style
+     *
+     * @param (boolean) select flag
+     */
+    select (flg) {
+        try {
+            this.effect('Border').forcedExec(flg);
+            this.weight((true === flg) ? 700 : 500);
         } catch (e) {
             console.error(e.stack);
             throw e;
